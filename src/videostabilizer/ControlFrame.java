@@ -76,7 +76,7 @@ public class ControlFrame extends JFrame {
         zoomLabel.setBounds(210,30,50,18);
         add(zoomLabel);
         try {
-            File f = new File("D:/xxx.txt");
+            File f = new File("D:/config.txt");
             BufferedReader b = new BufferedReader(new FileReader(f));
             String readLine = "";
             int i=2;
