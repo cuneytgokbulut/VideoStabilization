@@ -39,6 +39,12 @@ public class StabKeyListener extends KeyAdapter {
         else if (evt.getKeyCode()==72) {
             controlPanel.rText.setText((Double.valueOf(controlPanel.rText.getText()) - 0.001) + "");
         }
+        else if (evt.getKeyCode()==79) {
+            controlPanel.zText.setText((Double.valueOf(controlPanel.zText.getText()) + 0.001) + "");
+        }
+        else if (evt.getKeyCode()==80) {
+            controlPanel.zText.setText((Double.valueOf(controlPanel.zText.getText()) - 0.001) + "");
+        }
         else if (evt.getKeyCode()==90) {
                 frame.terminate();
         }

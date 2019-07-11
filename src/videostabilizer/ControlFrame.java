@@ -9,10 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Timer;
 
@@ -57,6 +54,28 @@ public class ControlFrame extends JFrame {
         bRefresh.setBounds(10,5,100,22);
         add(bRefresh);
 
+        JButton bSave = new JButton("Save");
+        bSave.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                try {
+                    new File("D:/config/config.txt").renameTo(new File("D:/config/config" + System.currentTimeMillis() + ".txt"));
+                    FileWriter writer = new FileWriter("D:/config/config.txt");
+                    for (int i=0;i<panelList.size();i++) {
+                        ControlPanel panel = panelList.get(i);
+                        writer.write(panel.number.getText()+"&&&"+panel.path+"&&&"+panel.topText.getText()+"&&&"+panel.leftText.getText()+"&&&"+panel.rText.getText()+"&&&"+panel.zText.getText() + System.lineSeparator());
+                    }
+                    writer.close();
+                }
+                catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        bSave.setBounds(120,5,100,22);
+        add(bSave);
+
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -76,7 +95,7 @@ public class ControlFrame extends JFrame {
         zoomLabel.setBounds(210,30,50,18);
         add(zoomLabel);
         try {
-            File f = new File("D:/config.txt");
+            File f = new File("D:/config/config.txt");
             BufferedReader b = new BufferedReader(new FileReader(f));
             String readLine = "";
             int i=2;
@@ -89,6 +108,7 @@ public class ControlFrame extends JFrame {
                 i++;
                 System.out.println(i);
             }
+            b.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -192,7 +212,7 @@ public class ControlFrame extends JFrame {
             else difference = (difference*((double)(i-1))+((double)Math.abs(a[i]-b[i])))/((double)i);
 
             if (enKucuk>threshold) {
-                ((ColorProcessor)imagePlusDifference.getProcessor()).pixels[i] = new Color(255, 255-(enKucuk/55000), 255-(enKucuk/55000)).getRGB();
+                ((ColorProcessor)imagePlusDifference.getProcessor()).pixels[i] = new Color(255, 255-(enKucuk/60000), 255-(enKucuk/60000)).getRGB();
 
             }
             else {
